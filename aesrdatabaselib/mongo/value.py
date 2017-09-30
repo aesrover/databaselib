@@ -21,10 +21,14 @@ class MongoGetPositionValue(GetPositionValue):
     def get_recent(self, lim=1):
         return self._find(lim, 1)
 
-    def get_early_pos(self, avg=1):
-        for doc in self.get_early(self.lim):
-            yield doc[self.pos_key]
+    def _get_pos(self, sort):
+        poss = []
+        for doc in self._find(self.lim, sort):
+            poss.append(doc[self.pos_key])
+        return float(sum(poss)) / max(len(poss), 1)
 
-    def get_recent_pos(self, avg=1):
-        for doc in self.get_recent(self.lim):
-            yield doc[self.pos_key]
+    def get_early_pos(self):
+        return self._get_pos(-1)
+
+    def get_recent_pos(self):
+        return self._get_pos(1)

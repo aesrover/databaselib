@@ -7,8 +7,8 @@ class GetDatabaseValue:
 
 
 class GetPositionValue(GetDatabaseValue):
-    def get_recent_pos(self, avg=1):
+    def get_recent_pos(self):
         raise NotImplementedError
 
-    def get_early_pos(self, avg=1):
+    def get_early_pos(self):
         raise NotImplementedError
