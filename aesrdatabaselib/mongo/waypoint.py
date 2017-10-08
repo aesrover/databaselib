@@ -12,14 +12,14 @@ class MongoWaypointManager(WaypointManager):
         super().__init__()
         self.wp_c = wp_c
 
-    def get_wps(self, lim: int = None) -> List[Tuple[float, float]]:
+    def get_wps(self, lim: int = None) -> List[Tuple[float, float, float]]:
         return [e['pos'] for e in self.wp_c.find(self.wp_filter)]
 
     def _get_del_wp(self):
         wp = self.wp_c.find_one(self.wp_filter)
         if wp is not None:
             self.wp_c.delete_one(wp)
-            wp = wp['pos']
+            wp = (*wp['pos'], wp['depth'])
         return wp
 
     def remove_wp(self, wp):
