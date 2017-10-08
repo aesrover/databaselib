@@ -22,5 +22,15 @@ class MongoWaypointManager(WaypointManager):
             wp = (*wp['pos'], wp['depth'])
         return wp
 
-    def remove_wp(self, wp):
-        self.wp_c.delete_one(wp)
+    def remove_wp(self, wp=None, pos=None, depth=None):
+        if wp is None:
+            filt = {}
+            if pos is not None:
+                filt['pos'] = pos
+
+            if depth is not None:
+                filt['depth'] = depth
+        else:
+            filt = wp
+
+        self.wp_c.delete_one(filt)
