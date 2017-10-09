@@ -40,4 +40,4 @@ class MongoWaypointManager(WaypointManager):
         else:
             filt = wp
 
-        self.wp_c.delete_one(filt)
+        self.wp_c.delete_many(filt)
