@@ -15,7 +15,8 @@ class MongoWaypointManager(WaypointManager):
     def __wp_as_dict(self, raw_wp):
         return {
             'pos': tuple(raw_wp['pos']),
-            'depth': raw_wp['depth']
+            'depth': raw_wp['depth'],
+            'time': raw_wp['time']
         }
 
     def get_wps(self, lim: int = None) -> List[dict]:
